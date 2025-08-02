@@ -1,26 +1,128 @@
-<html>
-    <head>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    </head>
-    <body>
-        Hello world !!
-        <a class="btn btn-primary" href="#" role="button">Link</a>
-        <button class="btn btn-primary" type="submit">Button</button>
-        <input class="btn btn-primary" type="button" value="Input">
-        <input class="btn btn-primary" type="submit" value="Submit">
-        <input class="btn btn-primary" type="reset" value="Reset">
-        <!-- Example single danger button -->
-        <div class="btn-group">
-            <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            Action
-            </button>
-            <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Separated link</a></li>
-            </ul>
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Astro v5.9.2">
+  <title>Blog Template · Bootstrap v5.3</title>
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/blog/">
+  <script src="/assets/js/color-modes.js"></script>
+  <link href="/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta name="theme-color" content="#712cf9">
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900&display=swap" rel="stylesheet">
+  <link href="styles/blog.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="styles/syles.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <style>
+    
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header class="border-bottom lh-1 py-3">
+      <div class="row flex-nowrap justify-content-between align-items-center">
+        <div class="col-4 pt-1"> <a class="link-secondary" href="#">Subscribe</a> </div>
+        <div class="col-4 text-center"> <a class="blog-header-logo text-body-emphasis text-decoration-none"
+            href="#">Large</a> </div>
+        <div class="col-4 d-flex justify-content-end align-items-center"> <a class="link-secondary" href="#"
+            aria-label="Search"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+              stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3"
+              role="img" viewBox="0 0 24 24">
+              <title>Search</title>
+              <circle cx="10.5" cy="10.5" r="7.5"></circle>
+              <path d="M21 21l-5.2-5.2"></path>
+            </svg> </a> <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a> </div>
+      </div>
+    </header>
+    <div class="nav-scroller py-1 mb-3 border-bottom">
+      <nav class="nav nav-underline justify-content-between"> <a class="nav-item nav-link link-body-emphasis active"
+          href="#">World</a> <a class="nav-item nav-link link-body-emphasis" href="#">U.S.</a> <a
+          class="nav-item nav-link link-body-emphasis" href="#">Technology</a> <a
+          class="nav-item nav-link link-body-emphasis" href="#">Design</a> <a
+          class="nav-item nav-link link-body-emphasis" href="#">Culture</a> <a
+          class="nav-item nav-link link-body-emphasis" href="#">Business</a> <a
+          class="nav-item nav-link link-body-emphasis" href="#">Politics</a> <a
+          class="nav-item nav-link link-body-emphasis" href="#">Opinion</a> <a
+          class="nav-item nav-link link-body-emphasis" href="#">Science</a> <a
+          class="nav-item nav-link link-body-emphasis" href="#">Health</a> <a
+          class="nav-item nav-link link-body-emphasis" href="#">Style</a> <a
+          class="nav-item nav-link link-body-emphasis" href="#">Travel</a> </nav>
+    </div>
+  </div>
+
+
+  <main class="container">
+    <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
+      <div class="col-lg-6 px-0">
+        <h1 class="display-4 fst-italic">Mias Blog</h1>
+        <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently
+          about what’s most interesting in this post’s contents.</p>
+        <p class="lead mb-0"><a href="#" class="text-body-emphasis fw-bold">Continue reading...</a></p>
+      </div>
+    </div>
+
+
+    <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- Map Column -->
+          <div class="col-md-8 mx-auto" id="map" style="height: 800px;"></div>  
         </div>
-    </body>
-</html> 
+      </div>
+    </div>
+
+
+    <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary" >
+      <!-- Image Column -->
+        <div class="col-md-4 d-flex flex-column justify-content-center mx-auto">
+          <h4 class="mb-3 mx-auto">Location Image</h4>
+          <img id="locationImage" src="" class="img-fluid rounded border mb-3 mx-auto" alt="Click a marker to see image">
+          <p id="locationText" class="text-muted mx-auto">Klicke auf einen Marker, um Infos zu sehen.</p>
+        </div>
+    </div>
+  </main>
+
+
+  <footer class="py-5 text-center text-body-secondary bg-body-tertiary">
+    <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a
+        href="https://x.com/mdo">@mdo</a>.</p>
+    <p class="mb-0"> <a href="#">Back to top</a> </p>
+  </footer>
+
+
+
+  <script src="assets/dist/js/bootstrap.bundle.min.js" class="astro-vvvwv3sm"></script>
+  <script>
+    // Initialize the map
+    var map = L.map('map').setView([52.5200, 13.4050], 13); // Centered on Berlin
+
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Marker data: coordinates + image URLs
+    var locations = [
+    { coords: [52.5200, 13.4050], img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFBXjrPK60y3x4SvmSAtBXKq4eh97qYcDPiQ&s', text: 'Brandenburger Tor' },
+    { coords: [52.5163, 13.3777], img: 'https://media.istockphoto.com/id/465832390/de/vektor/eiffelturm.jpg?s=612x612&w=0&k=20&c=pUQXHQGmkLJp9ttimc3QveZG3AqTuE24rxis1gfhtSY= ', text: 'Eifelturm' }
+  ];
+
+
+    // Add markers and click event
+    locations.forEach(loc => {
+      var marker = L.marker(loc.coords).addTo(map);
+      marker.on('click', function() {
+        document.getElementById('locationImage').src = loc.img;
+        document.getElementById('locationText').innerText = loc.text;
+      });
+    });
+  </script>
+</body>
+</html>
