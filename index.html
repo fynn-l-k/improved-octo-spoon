@@ -24,53 +24,53 @@
 </head>
 
 <body>
-  <div class="container">
-    <header class="border-bottom lh-1 py-3">
-      <div class="row flex-nowrap justify-content-between align-items-center">
-        <div class="col-4 pt-1"> <a class="link-secondary" href="#">Subscribe</a> </div>
-        <div class="col-4 text-center"> <a class="blog-header-logo text-body-emphasis text-decoration-none"
-            href="#">Large</a> </div>
-        <div class="col-4 d-flex justify-content-end align-items-center"> <a class="link-secondary" href="#"
-            aria-label="Search"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
-              stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3"
-              role="img" viewBox="0 0 24 24">
-              <title>Search</title>
-              <circle cx="10.5" cy="10.5" r="7.5"></circle>
-              <path d="M21 21l-5.2-5.2"></path>
-            </svg> </a> <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a> </div>
+  <header class="p-3 mb-3 border-bottom">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-body-emphasis text-decoration-none">
+          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+            <use xlink:href="#bootstrap"></use>
+          </svg>
+        </a>
+
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
+          <!-- <li><a href="#" class="nav-link px-2 link-body-emphasis">Features</a></li>
+          <li><a href="#" class="nav-link px-2 link-body-emphasis">Pricing</a></li>
+          <li><a href="#" class="nav-link px-2 link-body-emphasis">FAQs</a></li>
+          <li><a href="#" class="nav-link px-2 link-body-emphasis">About</a></li> -->
+        </ul>
+
+        <!-- Centered: -->
+        <div class="col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <span class="fs-4">Austreten.live</span>
+        </div>
+
+        <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+        </form> -->
+
+        <!-- <div class="text-end">
+          <button type="button" class="btn btn-outline-primary me-2">Login</button>
+          <button type="button" class="btn btn-primary">Sign-up</button>
+        </div> -->
       </div>
-    </header>
-    <div class="nav-scroller py-1 mb-3 border-bottom">
-      <nav class="nav nav-underline justify-content-between"> <a class="nav-item nav-link link-body-emphasis active"
-          href="#">World</a> <a class="nav-item nav-link link-body-emphasis" href="#">U.S.</a> <a
-          class="nav-item nav-link link-body-emphasis" href="#">Technology</a> <a
-          class="nav-item nav-link link-body-emphasis" href="#">Design</a> <a
-          class="nav-item nav-link link-body-emphasis" href="#">Culture</a> <a
-          class="nav-item nav-link link-body-emphasis" href="#">Business</a> <a
-          class="nav-item nav-link link-body-emphasis" href="#">Politics</a> <a
-          class="nav-item nav-link link-body-emphasis" href="#">Opinion</a> <a
-          class="nav-item nav-link link-body-emphasis" href="#">Science</a> <a
-          class="nav-item nav-link link-body-emphasis" href="#">Health</a> <a
-          class="nav-item nav-link link-body-emphasis" href="#">Style</a> <a
-          class="nav-item nav-link link-body-emphasis" href="#">Travel</a> </nav>
     </div>
-  </div>
-
-
+  </header>
+  
   <main class="container">
-    <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
-      <div class="col-lg-6 px-0">
-        <h1 class="display-4 fst-italic">Mias Blog</h1>
-        <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently
-          about what’s most interesting in this post’s contents.</p>
-        <p class="lead mb-0"><a href="#" class="text-body-emphasis fw-bold">Continue reading...</a></p>
-      </div>
-    </div>
-
 
     <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
       <div class="container-fluid">
         <div class="row">
+          <!-- Progress / Ladebalken -->
+          <div class="col-md-8 mx-auto mb-3">
+            <div id="visitCount" class="text-center fw-semibold mb-2">Ausgetreten: 0 / 0</div>
+            <div class="progress" role="progressbar" aria-label="Besuchsfortschritt" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="height: 24px;">
+              <div id="visitProgressBar" class="progress-bar" style="width: 0%;">0%</div>
+            </div>
+          </div>
+
           <!-- Map Column -->
           <div class="col-md-8 mx-auto" id="map" style="height: 800px;"></div>  
         </div>
@@ -98,32 +98,79 @@
 
 
   <script src="assets/dist/js/bootstrap.bundle.min.js" class="astro-vvvwv3sm"></script>
-  <script>
-    // Initialize the map
-    var map = L.map('map').setView([52.5200, 13.4050], 13); // Centered on Berlin
 
+<!-- WICHTIG: erst locations laden -->
+<script src="berlin_kirchen_locations_mit_besucht.js"></script>
 
-    // Add OpenStreetMap tiles
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
+<script>
+  // Initialize the map
+  var map = L.map('map').setView([52.5200, 13.4050], 13);
+
+  // Add OpenStreetMap tiles
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  // KEIN "var locations = kirchen.js;" mehr!
+  // locations kommt jetzt aus kirchen.js
+
+  // Marker-Farben: besucht = grün, nicht besucht = rot
+  const markerShadowUrl = 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png';
+  const baseIconOptions = {
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41],
+    shadowUrl: markerShadowUrl
+  };
+
+  const greenIcon = new L.Icon({
+    ...baseIconOptions,
+    iconUrl: 'https://cdn.jsdelivr.net/gh/pointhi/leaflet-color-markers@master/img/marker-icon-green.png'
+  });
+
+  const redIcon = new L.Icon({
+    ...baseIconOptions,
+    iconUrl: 'https://cdn.jsdelivr.net/gh/pointhi/leaflet-color-markers@master/img/marker-icon-red.png'
+  });
+
+  function isBesucht(val) {
+    if (val === true) return true;
+    if (val === false || val == null) return false;
+    const s = String(val).trim().toLowerCase();
+    return s === 'ja' || s === 'yes' || s === 'true' || s === '1';
+  }
+
+  function updateVisitProgress() {
+    const total = locations.length;
+    const visited = locations.filter(l => isBesucht(l.besucht)).length;
+    const percent = total ? Math.round((visited / total) * 100) : 0;
+
+    const countEl = document.getElementById('visitCount');
+    const barEl = document.getElementById('visitProgressBar');
+
+    if (countEl) countEl.textContent = `Besucht: ${visited} / ${total}`;
+    if (barEl) {
+      barEl.style.width = percent + '%';
+      barEl.textContent = percent + '%';
+      barEl.parentElement?.setAttribute('aria-valuenow', String(percent));
+    }
+  }
+
+  updateVisitProgress();
+
+  locations.forEach(loc => {
+    var marker = L.marker(loc.coords, {
+      icon: isBesucht(loc.besucht) ? greenIcon : redIcon
     }).addTo(map);
-
-    // Marker data: coordinates + image URLs
-    var locations = [
-    { coords: [52.5200, 13.4050], img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFBXjrPK60y3x4SvmSAtBXKq4eh97qYcDPiQ&s', text: 'Brandenburger Tor' },
-    { coords: [52.5163, 13.3777], img: 'https://media.istockphoto.com/id/465832390/de/vektor/eiffelturm.jpg?s=612x612&w=0&k=20&c=pUQXHQGmkLJp9ttimc3QveZG3AqTuE24rxis1gfhtSY= ', text: 'Eifelturm' },
-    { coords: [52.503217841797294, 13.385508206174386], img: 'https://lh3.googleusercontent.com/gps-cs-s/AC9h4np8DV3n_WYaKC6Igj7paw0eB5Gw7i13iVWTlFJxtJWgIuxp0ZwCiZDffOmJWvwFCfolXynKOp55SYJw1_-doBXBb2nbgb77p-wxqDaKFsbEOm_y6dFOKyKFOdzCYRojymbKk66Z=w408-h544-k-no', text: 'St. Clemens Kirche' }
-  ];
-
-
-    // Add markers and click event
-    locations.forEach(loc => {
-      var marker = L.marker(loc.coords).addTo(map);
-      marker.on('click', function() {
-        document.getElementById('locationImage').src = loc.img;
-        document.getElementById('locationText').innerText = loc.text;
-      });
+    marker.on('click', function() {
+      document.getElementById('locationImage').src = loc.img;
+      document.getElementById('locationText').innerText = loc.text;
     });
-  </script>
+  });
+</script>
+
+
+
 </body>
 </html>
