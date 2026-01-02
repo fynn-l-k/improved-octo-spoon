@@ -1,65 +1,28 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
-
+<html lang="de">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-  <meta name="generator" content="Astro v5.9.2">
-  <title>Blog Template · Bootstrap v5.3</title>
-  <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/blog/">
-  <script src="/assets/js/color-modes.js"></script>
-  <link href="/assets/dist/css/bootstrap.min.css" rel="stylesheet">
-  <meta name="theme-color" content="#712cf9">
-  <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900&display=swap" rel="stylesheet">
-  <link href="styles/blog.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <link rel="stylesheet" href="styles/syles.css" />
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <style>
-    
-  </style>
+  <meta charset="UTF-8" />
+  <title>AUSTRETEN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles/styles.css" />
 </head>
 
 <body>
-  <header class="p-3 mb-3 border-bottom">
-    <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-body-emphasis text-decoration-none">
-          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-            <use xlink:href="#bootstrap"></use>
-          </svg>
-        </a>
 
-        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
-          <!-- <li><a href="#" class="nav-link px-2 link-body-emphasis">Features</a></li>
-          <li><a href="#" class="nav-link px-2 link-body-emphasis">Pricing</a></li>
-          <li><a href="#" class="nav-link px-2 link-body-emphasis">FAQs</a></li>
-          <li><a href="#" class="nav-link px-2 link-body-emphasis">About</a></li> -->
-        </ul>
+<header>
+  <span class="title">austreten</span>
+</header>
 
-        <!-- Centered: -->
-        <div class="col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <span class="fs-4">Austreten.live</span>
-        </div>
+<main class="app">
 
-        <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-        </form> -->
-
-        <!-- <div class="text-end">
-          <button type="button" class="btn btn-outline-primary me-2">Login</button>
-          <button type="button" class="btn btn-primary">Sign-up</button>
-        </div> -->
-      </div>
-    </div>
-  </header>
-  
-  <main class="container">
-
+  <!-- MAP + PROGRESS -->
+  <section class="map-area">
     <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
       <div class="container-fluid">
         <div class="row">
@@ -76,69 +39,72 @@
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <!-- SEARCH -->
+    <input type="text" id="searchInput" placeholder="Suchen" autocomplete="off" />
 
 
-    <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary" >
-      <!-- Image Column -->
-        <div class="col-md-4 d-flex flex-column justify-content-center mx-auto">
-          <h4 class="mb-3 mx-auto">Location Image</h4>
-          <img id="locationImage" src="" class="img-fluid rounded border mb-3 mx-auto" alt="Click a marker to see image">
-          <p id="locationText" class="text-muted mx-auto">Klicke auf einen Marker, um Infos zu sehen.</p>
-        </div>
+    <!-- INFO PANEL -->
+    <div class="popup-panel" id="popupPanel">
+      <img id="locationImage" src="" alt="">
+      <div class="popup-text">
+        <h2 id="locationTitle">Ort wählen</h2>
+        <p id="locationDescription"></p>
+        <p id="locationMeta"></p>
+      </div>
     </div>
-  </main>
 
+  </aside>
 
-  <footer class="py-5 text-center text-body-secondary bg-body-tertiary">
-    <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a
-        href="https://x.com/mdo">@mdo</a>.</p>
-    <p class="mb-0"> <a href="#">Back to top</a> </p>
-  </footer>
+  <!-- LINE -->
+  <svg id="connector-layer"></svg>
 
+</main>
 
-
-  <script src="assets/dist/js/bootstrap.bundle.min.js" class="astro-vvvwv3sm"></script>
-
-<!-- WICHTIG: erst locations laden -->
-<script src="berlin_kirchen_locations_mit_besucht.js"></script>
+<!-- LOCATIONS -->
+<script src="kirchen_evangelisch.js"></script>
 
 <script>
-  // Initialize the map
-  var map = L.map('map').setView([52.5200, 13.4050], 13);
+document.addEventListener("DOMContentLoaded", () => {
 
-  // Add OpenStreetMap tiles
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors'
+  const map = L.map("map").setView([52.52, 13.405], 12);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: ""
   }).addTo(map);
 
-  // KEIN "var locations = kirchen.js;" mehr!
-  // locations kommt jetzt aus kirchen.js
+  const markers = [];
+  const panel = document.getElementById("popupPanel");
+  const svg = document.getElementById("connector-layer");
+  const progressBar = document.getElementById("visitProgressBar");
 
-  // Marker-Farben: besucht = grün, nicht besucht = rot
-  const markerShadowUrl = 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png';
-  const baseIconOptions = {
+  const baseIcon = {
     iconSize: [25, 41],
     iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41],
-    shadowUrl: markerShadowUrl
+    popupAnchor: [0, -32],
+    shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+    shadowSize: [41, 41]
   };
 
   const greenIcon = new L.Icon({
-    ...baseIconOptions,
-    iconUrl: 'https://cdn.jsdelivr.net/gh/pointhi/leaflet-color-markers@master/img/marker-icon-green.png'
+    ...baseIcon,
+    iconUrl: "https://cdn.jsdelivr.net/gh/pointhi/leaflet-color-markers@master/img/marker-icon-green.png"
   });
 
   const redIcon = new L.Icon({
-    ...baseIconOptions,
-    iconUrl: 'https://cdn.jsdelivr.net/gh/pointhi/leaflet-color-markers@master/img/marker-icon-red.png'
+    ...baseIcon,
+    iconUrl: "https://cdn.jsdelivr.net/gh/pointhi/leaflet-color-markers@master/img/marker-icon-red.png"
   });
 
   function isBesucht(val) {
     if (val === true) return true;
     if (val === false || val == null) return false;
     const s = String(val).trim().toLowerCase();
-    return s === 'ja' || s === 'yes' || s === 'true' || s === '1';
+    return s === "ja" || s === "yes" || s === "true" || s === "1";
   }
 
   function updateVisitProgress() {
@@ -159,18 +125,96 @@
 
   updateVisitProgress();
 
+  // MARKER ERSTELLEN
   locations.forEach(loc => {
-    var marker = L.marker(loc.coords, {
-      icon: isBesucht(loc.besucht) ? greenIcon : redIcon
-    }).addTo(map);
-    marker.on('click', function() {
-      document.getElementById('locationImage').src = loc.img;
-      document.getElementById('locationText').innerText = loc.text;
-    });
+    const icon = isBesucht(loc.besucht) ? greenIcon : redIcon;
+    const marker = L.marker(loc.coords, { icon }).addTo(map);
+    marker._data = loc;
+    markers.push(marker);
+
+    marker.on("click", () => showLocation(marker));
   });
+
+  function showLocation(marker) {
+    const d = marker._data;
+
+    panel.classList.add("active");
+    locationImage.src = d.img || "";
+    locationTitle.textContent = d.title || "";
+    locationDescription.textContent = d.description || "";
+    locationMeta.textContent =
+      `${d.date || ""} · ${d.time || ""} · ${d.weather || ""}`;
+
+    drawLine(marker);
+  }
+
+  function drawLine(marker) {
+    svg.innerHTML = "";
+
+    const mapPoint = map.latLngToContainerPoint(marker.getLatLng());
+    const img = document.getElementById("locationImage");
+    const imgRect = img.getBoundingClientRect();
+
+    const x1 = mapPoint.x;
+    const y1 = mapPoint.y;
+    const x2 = imgRect.left;
+    const y2 = imgRect.top + imgRect.height / 2;
+
+    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    line.setAttribute("x1", x1);
+    line.setAttribute("y1", y1);
+    line.setAttribute("x2", x2);
+    line.setAttribute("y2", y2);
+    line.setAttribute("stroke", "#ffffff");
+    line.setAttribute("stroke-width", "1");
+
+    svg.appendChild(line);
+  }
+
+  // SUCHE
+  const searchInput = document.getElementById("searchInput");
+const autocompleteList = document.getElementById("autocomplete-list");
+
+searchInput.addEventListener("input", () => {
+  const val = searchInput.value.toLowerCase();
+  autocompleteList.innerHTML = "";
+
+  if (!val) return;
+
+  const matches = locations
+    .filter(loc => loc.title.toLowerCase().includes(val))
+    .map(loc => loc.title);
+
+  matches.forEach(title => {
+    const li = document.createElement("li");
+    li.textContent = title;
+    li.addEventListener("click", () => selectTitle(title));
+    autocompleteList.appendChild(li);
+  });
+});
+
+searchInput.addEventListener("keydown", e => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    const first = autocompleteList.querySelector("li");
+    if (first) selectTitle(first.textContent);
+  }
+});
+
+function selectTitle(title) {
+  autocompleteList.innerHTML = "";
+  searchInput.value = title;
+
+  const marker = markers.find(m => m._data.title === title);
+  if (marker) {
+    map.setView(marker.getLatLng(), 15);
+    showLocation(marker);
+  }
+}
+
+
+});
 </script>
-
-
 
 </body>
 </html>
